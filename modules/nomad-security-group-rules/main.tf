@@ -16,6 +16,7 @@ resource "aws_security_group_rule" "allow_http_inbound" {
   to_port     = var.http_port
   protocol    = "tcp"
   cidr_blocks = var.allowed_inbound_cidr_blocks
+  self        = true
 
   security_group_id = var.security_group_id
 }
@@ -26,6 +27,7 @@ resource "aws_security_group_rule" "allow_rpc_inbound" {
   to_port     = var.rpc_port
   protocol    = "tcp"
   cidr_blocks = var.allowed_inbound_cidr_blocks
+  self        = true
 
   security_group_id = var.security_group_id
 }
@@ -36,6 +38,7 @@ resource "aws_security_group_rule" "allow_serf_tcp_inbound" {
   to_port     = var.serf_port
   protocol    = "tcp"
   cidr_blocks = var.allowed_inbound_cidr_blocks
+  self        = true
 
   security_group_id = var.security_group_id
 }
@@ -46,6 +49,7 @@ resource "aws_security_group_rule" "allow_serf_udp_inbound" {
   to_port     = var.serf_port
   protocol    = "udp"
   cidr_blocks = var.allowed_inbound_cidr_blocks
+  self        = true
 
   security_group_id = var.security_group_id
 }
