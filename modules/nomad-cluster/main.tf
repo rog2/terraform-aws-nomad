@@ -174,14 +174,18 @@ resource "aws_iam_role" "instance_role" {
   }
 }
 
+data "aws_region" "current" {}
+
 data "aws_iam_policy_document" "instance_role" {
   statement {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
 
+    # Compatible with AWS China Regions
+    # https://docs.amazonaws.cn/en_us/aws/latest/userguide/iam.html
     principals {
       type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
+      identifiers = [substr(data.aws_region.current.name, 0, 3) == "cn-" ? "ec2.amazonaws.com.cn" : "ec2.amazonaws.com"]
     }
   }
 }
