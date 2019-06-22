@@ -9,7 +9,7 @@ variable "security_group_id" {
 
 variable "allowed_inbound_cidr_blocks" {
   description = "A list of CIDR-formatted IP address ranges from which the EC2 Instances will allow connections to Nomad"
-  type        = "list"
+  type        = list(string)
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -19,15 +19,16 @@ variable "allowed_inbound_cidr_blocks" {
 
 variable "http_port" {
   description = "The port to use for HTTP"
-  default = 4646
+  default     = 4646
 }
 
 variable "rpc_port" {
   description = "The port to use for RPC"
-  default = 4647
+  default     = 4647
 }
 
 variable "serf_port" {
   description = "The port to use for Serf"
-  default = 4648
+  default     = 4648
 }
+

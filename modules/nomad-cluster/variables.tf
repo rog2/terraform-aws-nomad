@@ -21,7 +21,7 @@ variable "vpc_id" {
 
 variable "allowed_inbound_cidr_blocks" {
   description = "A list of CIDR-formatted IP address ranges from which the EC2 Instances will allow connections to Nomad"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "user_data" {
@@ -52,13 +52,13 @@ variable "asg_name" {
 
 variable "subnet_ids" {
   description = "The subnet IDs into which the EC2 Instances should be deployed. We recommend one subnet ID per node in the cluster_size variable. At least one of var.subnet_ids or var.availability_zones must be non-empty."
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "availability_zones" {
   description = "The availability zones into which the EC2 Instances should be deployed. We recommend one availability zone per node in the cluster_size variable. At least one of var.subnet_ids or var.availability_zones must be non-empty."
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -69,7 +69,7 @@ variable "ssh_key_name" {
 
 variable "allowed_ssh_cidr_blocks" {
   description = "A list of CIDR-formatted IP address ranges from which the EC2 Instances will allow SSH connections"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -160,13 +160,13 @@ variable "ssh_port" {
 
 variable "security_groups" {
   description = "Additional security groups to attach to the EC2 instances"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "tags" {
   description = "List of extra tag blocks added to the autoscaling group configuration. Each element in the list is a map containing keys 'key', 'value', and 'propagate_at_launch' mapped to the respective values."
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -181,6 +181,7 @@ variable "tags" {
 #  }]
 variable "ebs_block_devices" {
   description = "List of ebs volume definitions for those ebs_volumes that should be added to the instances created with the EC2 launch-configuration. Each element in the list is a map containing keys defined for ebs_block_device (see: https://www.terraform.io/docs/providers/aws/r/launch_configuration.html#ebs_block_device."
-  type        = "list"
+  type        = list(map(string))
   default     = []
 }
+
