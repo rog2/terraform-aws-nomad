@@ -161,7 +161,7 @@ variable "security_groups" {
 
 variable "tags" {
   description = "List of extra tag blocks added to the autoscaling group configuration. Each element in the list is a map containing keys 'key', 'value', and 'propagate_at_launch' mapped to the respective values."
-  type        = list(string)
+  type        = list(object({ key = string, value = string, propagate_at_launch = bool }))
   default     = []
 }
 
