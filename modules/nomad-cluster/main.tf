@@ -70,7 +70,7 @@ resource "aws_launch_configuration" "launch_configuration" {
   dynamic "ebs_block_device" {
     for_each = var.ebs_block_devices
     content {
-      device_name           = ebs_block_device.value
+      device_name           = ebs_block_device.value.device_name
       snapshot_id           = lookup(ebs_block_device.value, "snapshot_id", null)
       volume_type           = lookup(ebs_block_device.value, "volume_type", null)
       volume_size           = lookup(ebs_block_device.value, "volume_size", null)
