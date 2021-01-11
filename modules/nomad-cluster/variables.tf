@@ -93,6 +93,11 @@ variable "tenancy" {
   default     = "default"
 }
 
+variable "enable_detailed_monitoring" {
+  description = "Enables/disables detailed monitoring. This is enabled by default."
+  default     = true
+}
+
 variable "root_volume_ebs_optimized" {
   description = "If true, the launched EC2 instance will be EBS-optimized."
   default     = false
