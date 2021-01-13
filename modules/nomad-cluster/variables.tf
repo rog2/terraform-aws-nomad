@@ -84,6 +84,12 @@ variable "termination_policies" {
   default     = ["Default"]
 }
 
+variable "target_group_arns" {
+  description = "A list of aws_lb_target_group ARNs, for use with Application or Network Load Balancing."
+  type        = list(string)
+  default     = []
+}
+
 variable "associate_public_ip_address" {
   description = "If set to true, associate a public IP address with each EC2 Instance in the cluster."
   default     = false

@@ -27,6 +27,8 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   health_check_grace_period = var.health_check_grace_period
   wait_for_capacity_timeout = var.wait_for_capacity_timeout
 
+  target_group_arns = var.target_group_arns
+
   tags = flatten([
     {
       key                 = "Name"
