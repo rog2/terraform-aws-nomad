@@ -80,7 +80,8 @@ variable "cluster_tag_value" {
 
 variable "termination_policies" {
   description = "A list of policies to decide how the instances in the auto scale group should be terminated. The allowed values are OldestInstance, NewestInstance, OldestLaunchConfiguration, ClosestToNextInstanceHour, Default."
-  default     = "Default"
+  type        = list(string)
+  default     = ["Default"]
 }
 
 variable "associate_public_ip_address" {
