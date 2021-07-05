@@ -96,8 +96,15 @@ variable "associate_public_ip_address" {
 }
 
 variable "tenancy" {
-  description = "The tenancy of the instance. Must be one of: default or dedicated."
+  description = "The tenancy of the instance. Must be one of: default, dedicated or host."
+  type        = string
   default     = "default"
+}
+
+variable "enable_placement_group" {
+  description = "If true, create a spread placement group and launch instances with it. This is enabled by default, because of the nature of a nomad cluster."
+  type        = bool
+  default     = true
 }
 
 variable "enable_detailed_monitoring" {
@@ -105,19 +112,31 @@ variable "enable_detailed_monitoring" {
   default     = true
 }
 
-variable "root_volume_ebs_optimized" {
-  description = "If true, the launched EC2 instance will be EBS-optimized."
-  default     = false
+variable "root_volume_device_name" {
+  description = "The device name of volume. To find device name of the existing AMI, see: https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html"
+  default     = "/dev/sda1"
 }
 
 variable "root_volume_type" {
-  description = "The type of volume. Must be one of: standard, gp2, or io1."
-  default     = "standard"
+  description = "The type of root EBS volume. Must be one of: gp2, gp3, io1, io2, sc1, st1"
+  default     = "gp3"
 }
 
 variable "root_volume_size" {
   description = "The size, in GB, of the root EBS volume."
-  default     = 50
+  default     = 40
+}
+
+variable "root_volume_iops" {
+  description = "The amount of provisioned IOPS for the root EBS volume. This must be set with a root_volume_type of \"io1\", \"io2\", \"gp3\". (n.b.) The default for gp3 volumes is 3,000 IOPS."
+  type        = number
+  default     = null
+}
+
+variable "root_volume_throughput" {
+  description = "The throughput that the volume supports, in MiB/s. Only valid for type of \"gp3\". (n.b.) The default for gp3 volumes is 125 MiB/s."
+  type        = number
+  default     = null
 }
 
 variable "root_volume_delete_on_termination" {
@@ -176,19 +195,3 @@ variable "tags" {
   type        = list(object({ key = string, value = string, propagate_at_launch = bool }))
   default     = []
 }
-
-# Example for a ebs_block_device created from a snapshot and one with a certain size.
-# ebs_block_devices = [{
-#    "device_name" = "/dev/xvdf"
-#    "snapshot_id" = "snap-XYZ"
-#  },
-#  {
-#    "device_name" = "/dev/xvde"
-#    "volume_size" = "50"
-#  }]
-variable "ebs_block_devices" {
-  description = "List of ebs volume definitions for those ebs_volumes that should be added to the instances created with the EC2 launch-configuration. Each element in the list is a map containing keys defined for ebs_block_device (see: https://www.terraform.io/docs/providers/aws/r/launch_configuration.html#ebs_block_device."
-  type        = list(map(string))
-  default     = []
-}
-
