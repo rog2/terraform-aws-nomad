@@ -68,16 +68,6 @@ variable "allowed_ssh_cidr_blocks" {
   default     = []
 }
 
-variable "cluster_tag_key" {
-  description = "Add a tag with this key and the value var.cluster_tag_value to each Instance in the ASG."
-  default     = "nomad-servers"
-}
-
-variable "cluster_tag_value" {
-  description = "Add a tag with key var.cluster_tag_key and this value to each Instance in the ASG. This can be used to automatically find other Consul nodes and form a cluster."
-  default     = "auto-join"
-}
-
 variable "termination_policies" {
   description = "A list of policies to decide how the instances in the auto scale group should be terminated. The allowed values are OldestInstance, NewestInstance, OldestLaunchConfiguration, ClosestToNextInstanceHour, Default."
   type        = list(string)
