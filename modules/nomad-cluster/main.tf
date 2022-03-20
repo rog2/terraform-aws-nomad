@@ -92,6 +92,11 @@ resource "aws_launch_template" "launch_template" {
       delete_on_termination = var.root_volume_delete_on_termination
     }
   }
+
+  metadata_options {
+    # https://aws.amazon.com/about-aws/whats-new/2022/01/instance-tags-amazon-ec2-instance-metadata-service/
+    instance_metadata_tags = "enabled"
+  }
 }
 
 resource "aws_placement_group" "spread" {
