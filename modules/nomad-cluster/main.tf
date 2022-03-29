@@ -94,6 +94,10 @@ resource "aws_launch_template" "launch_template" {
   }
 
   metadata_options {
+    # As of 2022-03-29, we must specify http_endpoint = "enabled", otherwise:
+    #   Error: InvalidParameterValue: A value of ‘’ is not valid for http-endpoint. Valid values are ‘enabled’ or ‘disabled’.
+    # https://github.com/hashicorp/terraform-provider-aws/issues/12564
+    http_endpoint = "enabled"
     # https://aws.amazon.com/about-aws/whats-new/2022/01/instance-tags-amazon-ec2-instance-metadata-service/
     instance_metadata_tags = "enabled"
   }
