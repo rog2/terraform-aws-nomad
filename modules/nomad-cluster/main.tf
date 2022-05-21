@@ -132,7 +132,7 @@ resource "aws_launch_template" "launch_template" {
     tags = merge(
       data.aws_default_tags.this.tags,
       {
-        Name = "${var.cluster_name}.root"
+        Name = var.cluster_name
       },
       var.tags
     )
