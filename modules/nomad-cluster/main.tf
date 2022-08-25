@@ -1,9 +1,17 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# THESE TEMPLATES REQUIRE TERRAFORM VERSION 0.12 AND ABOVE
+# THESE TEMPLATES REQUIRE TERRAFORM VERSION 1.2 AND ABOVE
 # ---------------------------------------------------------------------------------------------------------------------
 
 terraform {
-  required_version = ">= 0.12"
+  required_version = "~> 1.2"
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      # resource/aws_placement_group: Add spread_level argument
+      # https://github.com/hashicorp/terraform-provider-aws/blob/main/CHANGELOG.md#4220-july--8-2022
+      version = "~> 4.22"
+    }
+  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -144,6 +152,10 @@ resource "aws_placement_group" "spread" {
   name     = var.cluster_name
   strategy = "spread"
   tags     = var.tags
+
+  # https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreatePlacementGroup.html
+  # https://aws.amazon.com/about-aws/whats-new/2022/06/amazon-ec2-placement-groups-support-host-level-spread-aws-outposts-rack/
+  spread_level = "rack"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
