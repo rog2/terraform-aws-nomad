@@ -1,15 +1,13 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# THESE TEMPLATES REQUIRE TERRAFORM VERSION 1.2 AND ABOVE
+# THESE TEMPLATES REQUIRE TERRAFORM VERSION 1.5 AND ABOVE
 # ---------------------------------------------------------------------------------------------------------------------
 
 terraform {
-  required_version = "~> 1.2"
+  required_version = "~> 1.5"
   required_providers {
     aws = {
-      source = "hashicorp/aws"
-      # resource/aws_placement_group: Add spread_level argument
-      # https://github.com/hashicorp/terraform-provider-aws/blob/main/CHANGELOG.md#4220-july--8-2022
-      version = "~> 4.22"
+      source  = "hashicorp/aws"
+      version = "~> 5.60"
     }
   }
 }
